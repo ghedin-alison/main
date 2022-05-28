@@ -10,3 +10,16 @@ sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
 hostname -I
 ```
 
+ - After the migrate settings are ready, on docker container execute:
+```commandline
+docker-compose exec backend sh
+```
+```commandline
+python manager.py db --help
+```
+```commandline
+python manager.py db init
+```
+```commandline
+python manager.py db migrate
+```
