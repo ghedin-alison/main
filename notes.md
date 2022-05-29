@@ -30,4 +30,12 @@ python manager.py db upgrade
 ```
  - Go to the other project microservices and set the rabbit mq
  - Return to this project, copy and paste the consumer.py to main project
- - 
+ - start the container and the consumer.py
+```commandline
+docker-compose exec backend sh
+```
+```commandline
+python consumer.py
+```
+ - Return to the microservices project and change the 
+   producer routing_key to main
