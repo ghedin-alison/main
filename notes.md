@@ -23,3 +23,11 @@ python manager.py db init
 ```commandline
 python manager.py db migrate
 ```
+
+- Connect on database via dbeaver and:
+```commandline
+python manager.py db upgrade
+```
+ - Go to the other project microservices and set the rabbit mq
+ - Return to this project, copy and paste the consumer.py to main project
+ - 
