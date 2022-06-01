@@ -39,3 +39,24 @@ python consumer.py
 ```
  - Return to the microservices project and change the 
    producer routing_key to main
+
+ - The communication between the two projects its working. Tests @postman.
+
+### Update Dockerfile to keep only one consumer tab
+ - update the Dockerfile and docker-compose to get ready when compose starts
+ - As the docker files were updated run:
+```unix
+docker-compose up --build
+```
+ - A lot of issues related to access .dbdata. This is because docker was trying to access.
+ - To solve this docker problem, just create a .dockerignore and add the folder.
+
+ - Then restart again the server and run this to start db
+```unix
+docker-compose up -d db
+```
+ - And again
+```unix
+docker-compose up
+```
+ - Add auto_ack=True to basic_consume of consumer
