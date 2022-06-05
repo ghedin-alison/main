@@ -41,13 +41,12 @@ def index():
 
 @app.route('/api/products/<int:id>/like', methods=['POST'])
 def like(id):
-    req = requests.get('http://host.docker.internal:8000/api/user') # this is to docker knows that refere to another localhost
+    req = requests.get('http://host.docker.internal:8000/api/user')
     json = req.json()
     try:
-        productUser = ProductUser(user_id=json['id'], product_id=id)
-        db.session.add(productUser)
+        product_user = ProductUser(user_id=json['id'], product_id=id)
+        db.session.add(product_user)
         db.session.commit()
-        # event
         publish('product_liked', id)
     except:
         abort(400, 'You already liked this product')
