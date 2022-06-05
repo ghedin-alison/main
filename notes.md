@@ -60,3 +60,11 @@ docker-compose up -d db
 docker-compose up
 ```
  - Add auto_ack=True to basic_consume of consumer
+
+### likes treatment
+ - When need to use two localhost on docker could be useful change:
+  "localhost or 0.0.0.0" by "host.docker.internal". 
+ - Change the settings to accept the "host.docker.internal".
+ - Add extra_hosts: "host.docker.internal:host-gateway" at docker-compose
+
+
