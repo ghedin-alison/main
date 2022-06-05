@@ -1,10 +1,11 @@
 import requests
 from markupsafe import escape
 from dataclasses import dataclass
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy import UniqueConstraint
+from producer import publish
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://teste:teste@db/main'
@@ -41,7 +42,19 @@ def index():
 @app.route('/api/products/<int:id>/like', methods=['POST'])
 def like(id):
     req = requests.get('http://host.docker.internal:8000/api/user') # this is to docker knows that refere to another localhost
-    return jsonify(req.json())
+    json = req.json()
+    try:
+        productUser = ProductUser(user_id=json['id'], product_id=id)
+        db.session.add(productUser)
+        db.session.commit()
+        # event
+        publish('product_liked', id)
+    except:
+        abort(400, 'You already liked this product')
+
+    return jsonify({
+        'message': 'success'
+    })
 
 
 if __name__ == '__main__':
